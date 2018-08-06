@@ -3,7 +3,7 @@ package pageObjects;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
-import dataProviders.FileReaderManager;
+import managers.FileReaderManager;
 
 public class HomePage {
 	WebDriver driver;

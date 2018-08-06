@@ -6,10 +6,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
+import enums.DriverType;
+import enums.EnvironmentType;
+import enums.OSSystem;
 import utils.CONSTANT;
 
 public class ConfigFileReader {
-	
+
 	private Properties properties;
 
 	public ConfigFileReader() {
@@ -29,8 +32,9 @@ public class ConfigFileReader {
 		}
 	}
 
-	public String getDriverPath() {
-		String driverPath = properties.getProperty(CONSTANT.LINUX_64_WEB_DRIVEN);
+	public String getDriverPath(String ossystemPrefix) {
+		String keyDrivePath = ossystemPrefix + CONSTANT.WEB_DRIVEN;
+		String driverPath = properties.getProperty(keyDrivePath);
 		if (driverPath != null)
 			return driverPath;
 		else
@@ -52,4 +56,50 @@ public class ConfigFileReader {
 		else
 			throw new RuntimeException("url not specified in the Configuration.properties file.");
 	}
+
+	public DriverType getBrowser() {
+		String browserName = properties.getProperty("browser");
+		if (browserName == null || browserName.equals("chrome"))
+			return DriverType.CHROME;
+		else if (browserName.equalsIgnoreCase("firefox"))
+			return DriverType.FIREFOX;
+		else if (browserName.equals("iexplorer"))
+			return DriverType.INTERNETEXPLORER;
+		else
+			throw new RuntimeException(
+					"Browser Name Key value in Configuration.properties is not matched : " + browserName);
+	}
+
+	public EnvironmentType getEnvironment() {
+		String environmentName = properties.getProperty("environment");
+		if (environmentName == null || environmentName.equalsIgnoreCase("local"))
+			return EnvironmentType.LOCAL;
+		else if (environmentName.equals("remote"))
+			return EnvironmentType.REMOTE;
+		else
+			throw new RuntimeException(
+					"Environment Type Key value in Configuration.properties is not matched : " + environmentName);
+	}
+
+	public Boolean getBrowserWindowSize() {
+		String windowSize = properties.getProperty("windowMaximize");
+		if (windowSize != null)
+			return Boolean.valueOf(windowSize);
+		return true;
+	}
+
+	public OSSystem getOSSystem() {
+		String osSystem = properties.getProperty("osSystem");
+		if (osSystem == null || osSystem.equalsIgnoreCase("mac")) {
+			return OSSystem.MAC;
+		} else if (osSystem.equalsIgnoreCase("linux64")) {
+			return OSSystem.LINUX64;
+		} else if (osSystem.equalsIgnoreCase("linux32")) {
+			return OSSystem.LINUX32;
+		} else {
+			throw new RuntimeException(
+					"osSystem Name Key value in Configuration.properties is not matched : " + osSystem);
+		}
+	}
+
 }

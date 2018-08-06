@@ -1,26 +1,19 @@
 package stepDefinitions;
 
-import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
-import dataProviders.ConfigFileReader;
-import dataProviders.FileReaderManager;
 import managers.PageObjectManager;
+import managers.WebDriverManager;
 import pageObjects.CartPage;
 import pageObjects.CheckoutPage;
 import pageObjects.HomePage;
 import pageObjects.ProductListingPage;
 
 public class Steps {
-	static {
-		ConfigFileReader configFileReader = FileReaderManager.getInstance().getConfigReader();
-		System.setProperty("webdriver.gecko.driver", configFileReader.getDriverPath());
-	}
-
 	PageObjectManager pageObjectManager;
+	WebDriverManager webDriverManager;
 	
 	WebDriver driver;
 	HomePage homePage;
@@ -30,12 +23,9 @@ public class Steps {
 
 	@Given("^user is on Home Page$")
 	public void user_is_on_Home_Page() {
-		driver = new FirefoxDriver();
+		webDriverManager = new WebDriverManager();
+		driver = webDriverManager.getDriver();
 		pageObjectManager = new PageObjectManager(driver);
-		driver.manage().window().maximize();
-		long implicitlyWait = FileReaderManager.getInstance().getConfigReader().getImplicitlyWait();
-		driver.manage().timeouts().implicitlyWait(implicitlyWait, TimeUnit.SECONDS);
-		driver.get("http://www.shop.demoqa.com");
 		homePage = pageObjectManager.getHomePage();
 		homePage.navigateTo_HomePage();
 	}
