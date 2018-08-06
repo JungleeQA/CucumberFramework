@@ -7,6 +7,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import dataProviders.ConfigFileReader;
+import dataProviders.FileReaderManager;
 import managers.PageObjectManager;
 import pageObjects.CartPage;
 import pageObjects.CheckoutPage;
@@ -14,10 +15,8 @@ import pageObjects.HomePage;
 import pageObjects.ProductListingPage;
 
 public class Steps {
-	private static ConfigFileReader configFileReader;
-
 	static {
-		configFileReader = new ConfigFileReader();
+		ConfigFileReader configFileReader = FileReaderManager.getInstance().getConfigReader();
 		System.setProperty("webdriver.gecko.driver", configFileReader.getDriverPath());
 	}
 
@@ -34,7 +33,8 @@ public class Steps {
 		driver = new FirefoxDriver();
 		pageObjectManager = new PageObjectManager(driver);
 		driver.manage().window().maximize();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		long implicitlyWait = FileReaderManager.getInstance().getConfigReader().getImplicitlyWait();
+		driver.manage().timeouts().implicitlyWait(implicitlyWait, TimeUnit.SECONDS);
 		driver.get("http://www.shop.demoqa.com");
 		homePage = pageObjectManager.getHomePage();
 		homePage.navigateTo_HomePage();
