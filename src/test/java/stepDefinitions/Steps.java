@@ -6,6 +6,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
+import dataProviders.ConfigFileReader;
 import managers.PageObjectManager;
 import pageObjects.CartPage;
 import pageObjects.CheckoutPage;
@@ -13,12 +14,11 @@ import pageObjects.HomePage;
 import pageObjects.ProductListingPage;
 
 public class Steps {
-
-	private static String MAC_OS_WEB_DRIVEN = "driverDir/geckodriver_macos";
-	private static String LINUX_64_WEB_DRIVEN = "driverDir/geckodriver_linux64";
+	private static ConfigFileReader configFileReader;
 
 	static {
-		System.setProperty("webdriver.gecko.driver", LINUX_64_WEB_DRIVEN);
+		configFileReader = new ConfigFileReader();
+		System.setProperty("webdriver.gecko.driver", configFileReader.getDriverPath());
 	}
 
 	PageObjectManager pageObjectManager;
