@@ -8,9 +8,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
+import testDataTypes.Customer;
+
 public class CheckoutPage {
+	WebDriver driver;
 
 	public CheckoutPage(WebDriver driver) {
+		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
 
@@ -165,7 +169,18 @@ public class CheckoutPage {
 		enter_Address("Shalimar Bagh");
 		enter_PostCode("110088");
 		select_County("Delhi");
-
+	}
+	
+	public void fill_PersonalDetails(Customer customer) {
+		enter_Name(customer.getFirstName());
+		enter_LastName(customer.getLastName());
+		enter_Phone(customer.getPhoneNumber().getMob());
+		enter_Email(customer.getEmailAddress());
+		enter_City(customer.getAddress().getCity());
+		enter_Address(customer.getAddress().getStreetAddress());
+		enter_PostCode(customer.getAddress().getPostCode());
+		select_Country(customer.getAddress().getCountry());
+		select_County(customer.getAddress().getCounty());		
 	}
 
 }

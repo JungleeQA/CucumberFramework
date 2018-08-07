@@ -101,5 +101,14 @@ public class ConfigFileReader {
 					"osSystem Name Key value in Configuration.properties is not matched : " + osSystem);
 		}
 	}
+	
+	public String getTestDataResourcePath() {
+		String testDataResourcePath = properties.getProperty("testDataResourcePath");
+		if (testDataResourcePath != null)
+			return testDataResourcePath;
+		else
+			throw new RuntimeException(
+					"Test Data Resource Path not specified in the Configuration.properties file for the Key:testDataResourcePath");
+	}
 
 }

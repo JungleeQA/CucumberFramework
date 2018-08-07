@@ -1,10 +1,12 @@
 package managers;
 
 import dataProviders.ConfigFileReader;
+import dataProviders.JsonDataReader;
 
 public class FileReaderManager {
 	private static FileReaderManager fileReaderManager = new FileReaderManager();
 	private static ConfigFileReader configFileReader;
+	private static JsonDataReader jsonDataReader;
 
 	private FileReaderManager() {
 
@@ -19,5 +21,12 @@ public class FileReaderManager {
 			configFileReader = new ConfigFileReader();
 		}
 		return configFileReader;
+	}
+
+	public JsonDataReader getJsonReader() {
+		if (jsonDataReader == null) {
+			jsonDataReader = new JsonDataReader();
+		}
+		return jsonDataReader;
 	}
 }
