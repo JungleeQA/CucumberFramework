@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
+import selenium.Wait;
 import testDataTypes.Customer;
 
 public class CheckoutPage {
@@ -89,28 +90,19 @@ public class CheckoutPage {
 	}
 
 	public void check_ShipToDifferentAddress(boolean value) {
-		if (!value)
+		if (!value) {
 			chkbx_ShipToDifferetAddress.click();
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
 		}
+		Wait.untilJqueryIsDone(driver);
 	}
 
 	public void select_Country(String countryName) {
 		drpdwn_CountryDropDownArrow.click();
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-		}
-
+		Wait.untilJqueryIsDone(driver);
 		for (WebElement country : country_List) {
 			if (country.getText().equals(countryName)) {
 				country.click();
-				try {
-					Thread.sleep(3000);
-				} catch (InterruptedException e) {
-				}
+				Wait.untilJqueryIsDone(driver);
 				break;
 			}
 		}
@@ -118,18 +110,11 @@ public class CheckoutPage {
 
 	public void select_County(String countyName) {
 		drpdwn_CountyDropDownArrow.click();
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-		}
-
+		Wait.untilJqueryIsDone(driver);
 		for (WebElement county : country_List) {
 			if (county.getText().equals(countyName)) {
 				county.click();
-				try {
-					Thread.sleep(3000);
-				} catch (InterruptedException e) {
-				}
+				//Wait.untilJqueryIsDone(driver);
 				break;
 			}
 		}
@@ -143,20 +128,18 @@ public class CheckoutPage {
 		} else {
 			new Exception("Payment Method not recognised : " + paymentMethod);
 		}
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-		}
-
+		Wait.untilJqueryIsDone(driver);
 	}
 
 	public void check_TermsAndCondition(boolean value) {
-		if (value)
+		if (value) {
 			chkbx_AcceptTermsAndCondition.click();
+		}
 	}
 
 	public void clickOn_PlaceOrder() {
 		btn_PlaceOrder.submit();
+		Wait.untilJqueryIsDone(driver);
 	}
 
 	public void fill_PersonalDetails() {
