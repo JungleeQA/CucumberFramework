@@ -90,8 +90,8 @@ public class ConfigFileReader {
 
 	public OSSystem getOSSystem() {
 		String osSystem = properties.getProperty("osSystem");
-		if (osSystem == null || osSystem.equalsIgnoreCase("mac")) {
-			return OSSystem.MAC;
+		if (osSystem == null || osSystem.equalsIgnoreCase("macos")) {
+			return OSSystem.MACOS;
 		} else if (osSystem.equalsIgnoreCase("linux64")) {
 			return OSSystem.LINUX64;
 		} else if (osSystem.equalsIgnoreCase("linux32")) {
