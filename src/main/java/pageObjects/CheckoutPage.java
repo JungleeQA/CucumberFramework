@@ -114,7 +114,7 @@ public class CheckoutPage {
 		for (WebElement county : country_List) {
 			if (county.getText().equals(countyName)) {
 				county.click();
-				//Wait.untilJqueryIsDone(driver);
+				Wait.untilJqueryIsDone(driver);
 				break;
 			}
 		}
@@ -140,6 +140,7 @@ public class CheckoutPage {
 	public void clickOn_PlaceOrder() {
 		btn_PlaceOrder.submit();
 		Wait.untilJqueryIsDone(driver);
+		Wait.untilPageLoadComplete(driver);
 	}
 
 	public void fill_PersonalDetails() {
